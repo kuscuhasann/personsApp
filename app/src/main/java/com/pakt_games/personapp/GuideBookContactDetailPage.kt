@@ -14,13 +14,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun GuideBookContactPage() {
+fun GuideBookContactDetailPage() {
     val textFieldPersonName = remember { mutableStateOf("") }
     val textFieldPersonPhoneNumber = remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = "Rehbere Ekle") })
+            TopAppBar(title = { Text(text = "Rehbere Detay Sayfası") })
         },
         content = {
             Column(
@@ -30,18 +30,20 @@ fun GuideBookContactPage() {
             ) {
                 TextField(value = textFieldPersonName.value, onValueChange = {textFieldPersonName.value = it}, label = { Text(
                     text = "Eklemek istediğiniz kişinin adını giriniz."
-                )})
+                )
+                })
                 TextField(value = textFieldPersonPhoneNumber.value, onValueChange = {textFieldPersonPhoneNumber.value = it}, label = { Text(
                     text = "Eklemek istediğiniz kişinin telefon numarasını giriniz."
-                )})
-                Button(onClick = { 
+                )
+                })
+                Button(onClick = {
                     val personName = textFieldPersonName.value
                     val personPhoneNumber = textFieldPersonPhoneNumber.value
                     println(personName + personPhoneNumber)
 
                     localFocusManager.clearFocus()
                 }, modifier = Modifier.size(250.dp, 50.dp)) {
-                    Text(text = "Kişiyi Rehbere Kaydet")
+                    Text(text = "Kişiyi Güncelle")
                 }
             }
         }
