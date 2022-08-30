@@ -10,6 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.google.gson.Gson
+import com.pakt_games.personapp.model.Persons
 import com.pakt_games.personapp.ui.theme.PersonAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,9 +29,29 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainPage()
+                    PageOrientationControl()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun PageOrientationControl() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "mainPage") {
+        composable("mainPage") {
+            MainPage(navController = navController)
+        }
+        composable("guideBookContactPage") {
+            GuideBookContactPage()
+        }
+        composable("guideBookDetailPage/{personModel}", arguments = listOf(
+            navArgument("personModel") {type = NavType.StringType}
+        )) {
+            val jsonModel = it.arguments?.getString("personModel")
+            val objectModel = Gson().fromJson(jsonModel, Persons::class.java)
+            GuideBookContactDetailPage(incomingModel = objectModel)
         }
     }
 }
@@ -33,6 +60,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     PersonAppTheme {
-        MainPage()
+
     }
 }

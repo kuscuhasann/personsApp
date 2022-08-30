@@ -12,10 +12,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.google.gson.Gson
 import com.pakt_games.personapp.model.Persons
 
 @Composable
-fun MainPage() {
+fun MainPage(navController: NavController) {
     val isSearchActive = remember { mutableStateOf(false) }
     val textFieledSearchResult = remember { mutableStateOf("") }
     val personsList = remember { mutableStateListOf<Persons>() }
@@ -81,7 +83,8 @@ fun MainPage() {
                             .padding(all = 5.dp)
                             .fillMaxWidth()) {
                             Row(modifier = Modifier.clickable {
-
+                                val personJson = Gson().toJson(person)
+                                navController.navigate("guideBookDetailPage/${personJson}")
                             }) {
                                 Row(
                                     modifier = Modifier
@@ -107,7 +110,9 @@ fun MainPage() {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                       navController.navigate("guideBookContactPage")
+                },
                 backgroundColor = colorResource(id = R.color.teal_700),
                 content = {
                     Icon(painter = painterResource(id = R.drawable.ic_baseline_person_add_24), contentDescription = "", tint = Color.White)
