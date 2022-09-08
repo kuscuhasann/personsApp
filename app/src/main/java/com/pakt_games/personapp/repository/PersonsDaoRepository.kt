@@ -26,7 +26,10 @@ class PersonsDaoRepository {
     fun findPerson(personParameterForFinding: String) {
 
     }
-    fun personRegistration(personId: Int, personName: String, personPhone: String) {
+    fun personRegistration(personName: String, personPhone: String) {
+
+    }
+    fun personUpdate(personId: Int,personName: String, personPhone: String) {
 
     }
     fun deletePerson(personId: Int) {

@@ -12,26 +12,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import com.pakt_games.personapp.model.Persons
+import com.pakt_games.personapp.viewmodel.MainPageViewModel
 
 @Composable
 fun MainPage(navController: NavController) {
     val isSearchActive = remember { mutableStateOf(false) }
     val textFieledSearchResult = remember { mutableStateOf("") }
-    val personsList = remember { mutableStateListOf<Persons>() }
-
-    LaunchedEffect(key1 = true) {
-        val person1 = Persons(1,"Hasan","1234")
-        val person2 = Persons(2,"Bedri","12345")
-        val person3 = Persons(3,"Hatice","123456")
-        val person4 = Persons(4,"Hilal","1234567")
-        personsList.add(person1)
-        personsList.add(person2)
-        personsList.add(person3)
-        personsList.add(person4)
-    }
+    val viewModel: MainPageViewModel = viewModel()
+    val personsList = viewModel.personsList.collectAsState(arrayListOf())
 
     Scaffold(
         topBar = {
@@ -76,9 +68,9 @@ fun MainPage(navController: NavController) {
         content = {
             LazyColumn{
                 items(
-                    count = personsList.count(),
+                    count = personsList.value.count(),
                     itemContent = {
-                        val person = personsList[it]
+                        val person = personsList.value[it]
                         Card(modifier = Modifier
                             .padding(all = 5.dp)
                             .fillMaxWidth()) {

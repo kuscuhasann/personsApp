@@ -12,12 +12,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.pakt_games.personapp.viewmodel.GuideBookContactPageViewModel
 
 @Composable
 fun GuideBookContactPage() {
     val textFieldPersonName = remember { mutableStateOf("") }
     val textFieldPersonPhoneNumber = remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
+
+    val viewModel: GuideBookContactPageViewModel = viewModel()
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(text = "Rehbere Ekle") })
@@ -37,7 +41,7 @@ fun GuideBookContactPage() {
                 Button(onClick = { 
                     val personName = textFieldPersonName.value
                     val personPhoneNumber = textFieldPersonPhoneNumber.value
-                    println(personName + personPhoneNumber)
+                    viewModel.personRegistration(personName, personPhoneNumber)
 
                     localFocusManager.clearFocus()
                 }, modifier = Modifier.size(250.dp, 50.dp)) {
