@@ -1,4 +1,6 @@
 package com.pakt_games.personapp.viewmodel
 
-class GuideBookContactPageViewModel {
+import com.pakt_games.personapp.base.BaseViewModel
+
+class GuideBookContactPageViewModel: BaseViewModel() {
 }

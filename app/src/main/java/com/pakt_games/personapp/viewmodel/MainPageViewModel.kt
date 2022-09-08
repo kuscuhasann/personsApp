@@ -1,4 +1,6 @@
 package com.pakt_games.personapp.viewmodel
 
-class MainPageViewModel {
+import com.pakt_games.personapp.base.BaseViewModel
+
+class MainPageViewModel: BaseViewModel() {
 }
