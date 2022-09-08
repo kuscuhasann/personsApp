@@ -88,7 +88,7 @@ fun MainPage(navController: NavController) {
                                     Text(text = "${person.personName} - ${person.personPhoneNumber}")
 
                                     IconButton(onClick = {
-                                        Log.e("Kişi Sil","${person.personId}")
+                                        viewModel.deletePerson(personId = person.personId)
                                     }) {
                                         Icon(painter = painterResource(id = R.drawable.ic_baseline_delete_outline_24),
                                             contentDescription = "",tint = Color.Gray)
